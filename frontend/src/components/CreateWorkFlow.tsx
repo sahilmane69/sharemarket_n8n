@@ -4,15 +4,29 @@ import { ReactFlow, applyNodeChanges, applyEdgeChanges, addEdge, type NodeChange
 import '@xyflow/react/dist/style.css';
 import './CreateWorkFlow.css';
  
-const initialNodes: Node[] = [
-  { id: 'n1', position: { x: 0, y: 0 }, data: { label: 'Node 1' } },
-  { id: 'n2', position: { x: 0, y: 100 }, data: { label: 'Node 2' } },
-];
-const initialEdges: Edge[] = [{ id: 'e1-2', source: 'n1', target: 'n2' }];
- 
+
+
+export type NodeKind = {
+  trigger: NodeType;
+  action: "hyperliquid" | "backpack" | "lighter";
+  condition: "hyperliquid" | "backpack" | "lighter";
+}
+interface NodeType 
+{
+data:{
+    type: "trigger" | "action" | "condition";
+    kind: NodeKind;
+}
+id: string , position: {x: number, y: number};
+}
+interface Edge{
+  id : string, 
+  source: string, 
+  target: string, 
+}
 export default function App() {
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const [nodes, setNodes] = useState<NodeType[]>([]);
+  const [edges, setEdges] = useState<Edge[]>([]);
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
