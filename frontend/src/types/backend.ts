@@ -1,5 +1,4 @@
-// Adapter types for backend API
-import type { WorkflowData, ExecutionLog } from './workflow';
+import type { WorkflowData } from './workflow';
 
 export type BackendNodeType = 'timer' | 'api' | 'ai' | 'logger';
 
