@@ -1,6 +1,6 @@
 // Core workflow type definitions
 
-export type NodeType = 'trigger' | 'api' | 'ai' | 'condition' | 'email' | 'database';
+export type NodeType = 'timer' | 'api' | 'ai' | 'logger';
 
 export type TriggerType = 'manual' | 'schedule' | 'webhook';
 export type ConditionOperator = 'equals' | 'contains' | 'gt' | 'lt' | 'gte' | 'lte' | 'startsWith' | 'endsWith';
@@ -11,7 +11,7 @@ export interface NodeConfig {
   type: NodeType;
   label: string;
   position: { x: number; y: number };
-  data: Record<string, JsonValue>;
+  data: Record<string, any>;
 }
 
 export interface EdgeConfig {
@@ -121,10 +121,27 @@ export interface DatabaseNodeConfig extends NodeConfig {
   };
 }
 
-export type AnyNodeConfig =
-  | TriggerNodeConfig
-  | APINodeConfig
-  | AINodeConfig
-  | ConditionNodeConfig
-  | EmailNodeConfig
-  | DatabaseNodeConfig;
+export type Workflow = WorkflowData;
+
+export interface Execution {
+  _id: string;
+  workflowId: string;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+  startTime: string;
+  endTime?: string;
+  duration?: number;
+  error?: string;
+  nodeExecutions: Array<{
+    nodeId: string;
+    status: 'pending' | 'running' | 'completed' | 'failed';
+    input: Record<string, any>;
+    output: Record<string, any>;
+    error?: string;
+    startTime?: string;
+    endTime?: string;
+    duration?: number;
+  }>;
+  finalOutput?: Record<string, any>;
+  createdAt: string;
+}
+
