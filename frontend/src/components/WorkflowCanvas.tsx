@@ -37,7 +37,7 @@ interface WorkflowCanvasProps {
 }
 
 export function WorkflowCanvas({ workflow, onSave, onExecute }: WorkflowCanvasProps) {
-  const [nodes, setNodes, onNodesChange] = useNodesState(
+  const [nodes, setNodes, onNodesChange] = useNodesState<any>(
     (workflow.nodes || []).map(n => ({
       id: n.id,
       type: n.type,

@@ -41,7 +41,7 @@ export function WorkflowEditor() {
     }
   };
 
-  const handleExecute = async (workflow: WorkflowData) => {
+  const handleExecute = async (_workflow: WorkflowData) => {
     if (!id) return;
     try {
       await apiClient.executeWorkflow(id);

@@ -40,9 +40,9 @@ export const workflowUtils = {
       errors.push('Workflow must have at least one node');
     }
 
-    const hasTrigger = workflow.nodes.some(n => n.type === 'trigger');
+    const hasTrigger = workflow.nodes.some(n => n.type === 'timer');
     if (!hasTrigger) {
-      errors.push('Workflow must have a trigger node');
+      errors.push('Workflow must have a timer trigger node');
     }
 
     // Check for orphaned nodes (nodes with no incoming or outgoing edges)
@@ -53,7 +53,7 @@ export const workflowUtils = {
       connectedNodeIds.add(edge.target);
     });
 
-    const triggerNode = workflow.nodes.find(n => n.type === 'trigger');
+    const triggerNode = workflow.nodes.find(n => n.type === 'timer');
     if (triggerNode && !connectedNodeIds.has(triggerNode.id)) {
       errors.push('Trigger node must be connected to other nodes');
     }
@@ -88,9 +88,9 @@ export const workflowUtils = {
       order.push(nodeId);
     };
 
-    // Start from trigger nodes
+    // Start from timer nodes
     workflow.nodes
-      .filter(n => n.type === 'trigger')
+      .filter(n => n.type === 'timer')
       .forEach(n => visit(n.id));
 
     return order;

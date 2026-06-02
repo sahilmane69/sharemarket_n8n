@@ -24,6 +24,7 @@ export interface EdgeConfig {
 
 export interface WorkflowData {
   id: string;
+  _id?: string;
   name: string;
   description: string;
   nodes: NodeConfig[];
@@ -53,74 +54,6 @@ export interface ExecutionState {
   endTime?: string;
 }
 
-// Node-specific configurations
-export interface TriggerNodeConfig extends NodeConfig {
-  type: 'trigger';
-  data: {
-    triggerType: TriggerType;
-    schedule?: string; // cron expression
-    webhookUrl?: string;
-  };
-}
-
-export interface APINodeConfig extends NodeConfig {
-  type: 'api';
-  data: {
-    method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
-    url: string;
-    headers?: Record<string, string>;
-    body?: Record<string, JsonValue>;
-    params?: Record<string, string>;
-  };
-}
-
-export interface AINodeConfig extends NodeConfig {
-  type: 'ai';
-  data: {
-    provider: 'openai' | 'anthropic' | 'local';
-    model: string;
-    prompt: string;
-    temperature?: number;
-    maxTokens?: number;
-  };
-}
-
-export interface ConditionNodeConfig extends NodeConfig {
-  type: 'condition';
-  data: {
-    conditions: {
-      field: string;
-      operator: ConditionOperator;
-      value: string | number | boolean;
-    }[];
-    logic: 'and' | 'or';
-  };
-}
-
-export interface EmailNodeConfig extends NodeConfig {
-  type: 'email';
-  data: {
-    to: string;
-    cc?: string;
-    bcc?: string;
-    subject: string;
-    body: string;
-    attachments?: string[];
-  };
-}
-
-export interface DatabaseNodeConfig extends NodeConfig {
-  type: 'database';
-  data: {
-    operation: 'query' | 'insert' | 'update' | 'delete';
-    database: string;
-    query?: string;
-    table?: string;
-    where?: Record<string, JsonValue>;
-    values?: Record<string, JsonValue>;
-  };
-}
-
 export type Workflow = WorkflowData;
 
 export interface Execution {
@@ -143,5 +76,15 @@ export interface Execution {
   }>;
   finalOutput?: Record<string, any>;
   createdAt: string;
+}
+
+export interface LogEntry {
+  _id: string;
+  executionId: string;
+  nodeId: string;
+  level: 'info' | 'warn' | 'error' | 'debug';
+  message: string;
+  timestamp: string;
+  metadata?: Record<string, any>;
 }
 
