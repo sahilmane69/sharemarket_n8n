@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Plus, Trash2, Edit2, Play } from 'lucide-react';
 import { useWorkflows } from '../hooks/useWorkflows';
 import { useExecution } from '../hooks/useExecution';
-import { templateUtils } from '../lib/templates';
+import { templateUtils, workflowTemplates } from '../lib/templates';
 import { convertLocalWorkflowToBackend } from '../types/backend';
 
 export function Dashboard() {
@@ -99,7 +99,7 @@ export function Dashboard() {
             Templates
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {templateUtils.getTemplates().map((template) => (
+            {Object.entries(workflowTemplates).map(([key, template]) => (
               <div
                 key={template.id}
                 className="bg-white border-2 border-black p-5 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col justify-between"
@@ -109,7 +109,7 @@ export function Dashboard() {
                   <p className="text-xs opacity-75 mb-6">{template.description}</p>
                 </div>
                 <button
-                  onClick={() => createFromTemplate('aiStockResearch')}
+                  onClick={() => createFromTemplate(key)}
                   className="w-full py-2.5 bg-black hover:bg-white hover:text-black text-white border-2 border-black font-bold uppercase tracking-wider text-[10px] transition-all cursor-pointer"
                 >
                   Use Template
