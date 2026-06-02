@@ -1,44 +1,50 @@
 "use client";
-import { useState, useCallback } from 'react';
-import { ReactFlow, applyNodeChanges, applyEdgeChanges, addEdge, type NodeChange, type EdgeChange, type Connection, type Node, type Edge } from '@xyflow/react';
+import { useCallback } from 'react';
+import {
+  ReactFlow,
+  addEdge,
+  type Connection,
+  type Edge as FlowEdge,
+  type Node as FlowNode,
+  useEdgesState,
+  useNodesState,
+} from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import './CreateWorkFlow.css';
- 
-
 
 export type NodeKind = {
-  trigger: NodeType;
-  action: "hyperliquid" | "backpack" | "lighter";
-  condition: "hyperliquid" | "backpack" | "lighter";
-}
-interface NodeType 
-{
-data:{
-    type: "trigger" | "action" | "condition";
-    kind: NodeKind;
-}
-id: string , position: {x: number, y: number};
-}
-interface Edge{
-  id : string, 
-  source: string, 
-  target: string, 
-}
-export default function App() {
-  const [nodes, setNodes] = useState<NodeType[]>([]);
-  const [edges, setEdges] = useState<Edge[]>([]);
+  trigger: 'hyperliquid' | 'backpack' | 'lighter';
+  action: 'hyperliquid' | 'backpack' | 'lighter';
+  condition: 'hyperliquid' | 'backpack' | 'lighter';
+};
 
-  const onNodesChange = useCallback(
-    (changes: NodeChange[]) => setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
-    [],
-  );
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange[]) => setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
-    [],
-  );
+type NodeData = {
+  type: 'trigger' | 'action' | 'condition';
+  kind: NodeKind;
+};
+
+export default function App() {
+  const initialNodes: FlowNode<NodeData>[] = [
+    {
+      id: 'trigger-1',
+      position: { x: 200, y: 140 },
+      data: {
+        type: 'trigger',
+        kind: {
+          trigger: 'hyperliquid',
+          action: 'hyperliquid',
+          condition: 'hyperliquid',
+        },
+      },
+    },
+  ];
+
+  const [nodes, , onNodesChange] = useNodesState<FlowNode<NodeData>>(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<FlowEdge>([]);
+
   const onConnect = useCallback(
-    (params: Connection) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
-    [],
+    (params: Connection) => setEdges((currentEdges) => addEdge(params, currentEdges)),
+    [setEdges],
   );
 
   return (
