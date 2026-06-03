@@ -9,7 +9,7 @@ export interface IWorkflow extends WorkflowData, Document {
 
 const nodeSchema = new Schema<NodeConfig>({
   id: { type: String, required: true },
-  type: { type: String, enum: ['timer', 'api', 'ai', 'logger'], required: true },
+  type: { type: String, enum: ['timer', 'api', 'ai', 'logger', 'trade'], required: true },
   label: { type: String, required: true },
   position: {
     x: { type: Number, required: true },

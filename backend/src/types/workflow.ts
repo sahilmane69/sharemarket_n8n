@@ -1,5 +1,4 @@
-// Node Types
-export type NodeType = 'timer' | 'api' | 'ai' | 'logger';
+export type NodeType = 'timer' | 'api' | 'ai' | 'logger' | 'trade';
 
 // Node Configuration Types
 export interface BaseNodeConfig {
@@ -36,15 +35,19 @@ export interface AINodeConfig extends BaseNodeConfig {
   };
 }
 
-export interface LoggerNodeConfig extends BaseNodeConfig {
-  type: 'logger';
+export interface TradeNodeConfig extends BaseNodeConfig {
+  type: 'trade';
   data: {
-    level: 'info' | 'warn' | 'error' | 'debug';
-    message: string;
+    symbol: string;
+    action: 'buy' | 'sell';
+    quantity: number;
+    mode: 'simulation' | 'alpaca';
+    alpacaKeyId?: string;
+    alpacaSecret?: string;
   };
 }
 
-export type NodeConfig = TimerNodeConfig | APINodeConfig | AINodeConfig | LoggerNodeConfig;
+export type NodeConfig = TimerNodeConfig | APINodeConfig | AINodeConfig | LoggerNodeConfig | TradeNodeConfig;
 
 // Edge Configuration
 export interface EdgeConfig {
