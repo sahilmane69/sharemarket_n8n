@@ -1,74 +1,70 @@
-# Share Market n8n
+# AutoFlow - Share Market Workflow Automation Platform
 
-A full-stack stock market automation platform that combines React, Node.js, MongoDB, and n8n to automate market-related workflows.
+AutoFlow is a customizable workflow automation platform designed for stock and cryptocurrency markets. It allows you to build visual orchestrations connecting real-time APIs, AI analysis, logging, and paper trading actions.
 
-## Features
+![AutoFlow Screenshot](./image.png)
 
-- Stock market workflow automation
-- React frontend
-- Node.js backend
-- MongoDB database integration
-- n8n workflow support
-- Simple and extensible architecture
+---
 
-## Tech Stack
+## 🚀 Key Features
 
-- React
-- TypeScript
-- Node.js
-- Express
-- MongoDB
-- n8n
+*   **Visual Workflow Canvas:** Drag-and-drop node-based builder to chain triggers, API requests, AI processing, and trades.
+*   **Paper Trading Account:**
+    *   **Built-in Simulation Mode:** Tracks a virtual `$100,000` cash balance and holdings locally inside MongoDB.
+    *   **Alpaca Broker Integration:** Routes market orders directly to Alpaca's Paper Trading sandbox using your API keys.
+*   **Built-in Nodes:**
+    *   `Timer Trigger`: Delays execution by specified intervals.
+    *   `API Call`: Dynamic GET/POST/etc. calls to query markets (Yahoo Finance, CoinGecko, etc.).
+    *   `AI Analyst`: Prompt engineering using variables from previous steps (OpenAI, Anthropic, or Local models).
+    *   `Paper Trade`: Enforces buy/sell actions with simulation or broker API integrations.
+    *   `Logger`: Tracks log alerts in real-time execution panels.
+*   **High-Contrast Monochrome UI:** Clean, retro black-and-white design for visual efficiency.
 
-## Project Structure
+---
 
-```
-sharemarket_n8n/
-├── frontend/
-├── backend/
-├── docker-compose.yml
-└── README.md
-```
+## 🛠️ Local Development Setup
 
-## Getting Started
-
-### Clone the Repository
-
+### 1. Database Setup (MongoDB)
+Ensure MongoDB is running locally on port `27017` (default native Homebrew service):
 ```bash
-git clone https://github.com/sahilmane69/sharemarket_n8n.git
-cd sharemarket_n8n
+brew tap mongodb/brew
+brew install mongodb-community@7.0
+brew services start mongodb-community@7.0
 ```
 
-### Install Dependencies
+### 2. Backend Service
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+2. Install dependencies and start the dev server:
+   ```bash
+   bun install
+   bun run dev
+   ```
+The backend API runs on **`http://localhost:5002`**.
 
-```bash
-# Frontend
-cd frontend
-npm install
+### 3. Frontend App
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install dependencies and start the dev server:
+   ```bash
+   bun install
+   bun run dev
+   ```
+The frontend dev server runs on **`http://localhost:5174`**.
 
-# Backend
-cd ../backend
-npm install
-```
+---
 
-### Environment Variables
+## 📡 Cloud Deployment
 
-Create a `.env` file in the backend directory and add the required environment variables.
+*   **Frontend:** Deployed on **Vercel** with client-side SPA routing rewrites configured inside `vercel.json`.
+*   **Backend & MongoDB:** Deployed on **Railway** with custom environment variables and a periodic keep-alive database ping to prevent idle container sleeping.
 
-### Run the Project
+---
 
-```bash
-# Backend
-npm run dev
+## 🧑‍💻 Developer
 
-# Frontend
-npm run dev
-```
-
-## Deployment
-
-Frontend and backend can be deployed independently. MongoDB Atlas is recommended for database hosting.
-
-## License
-
-MIT
+Created and maintained by **Sahil Mane** (GitHub: [@sahilmane69](https://github.com/sahilmane69)).
