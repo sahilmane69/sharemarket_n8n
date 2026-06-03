@@ -63,6 +63,22 @@ class ApiClient {
     const response = await this.client.get(`/logs/${executionId}/${nodeId}`);
     return response.data.data;
   }
+
+  // Portfolio endpoints
+  async getPortfolio(): Promise<any> {
+    const response = await this.client.get('/portfolio');
+    return response.data.data;
+  }
+
+  async resetPortfolio(): Promise<any> {
+    const response = await this.client.post('/portfolio/reset');
+    return response.data.data;
+  }
+
+  async getTransactions(): Promise<any[]> {
+    const response = await this.client.get('/portfolio/transactions');
+    return response.data.data;
+  }
 }
 
 export const apiClient = new ApiClient();

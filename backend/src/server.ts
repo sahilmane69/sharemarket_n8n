@@ -7,6 +7,7 @@ import { errorHandler, corsMiddleware } from './middleware/index.js';
 import workflowRoutes from './routes/workflows.js';
 import executionRoutes from './routes/executions.js';
 import logRoutes from './routes/logs.js';
+import portfolioRoutes from './routes/portfolio.js';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/workflows', workflowRoutes);
 app.use('/api/executions', executionRoutes);
 app.use('/api/logs', logRoutes);
+app.use('/api/portfolio', portfolioRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

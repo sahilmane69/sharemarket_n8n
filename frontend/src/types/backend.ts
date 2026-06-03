@@ -1,6 +1,6 @@
 import type { WorkflowData } from './workflow';
 
-export type BackendNodeType = 'timer' | 'api' | 'ai' | 'logger';
+export type BackendNodeType = 'timer' | 'api' | 'ai' | 'logger' | 'trade';
 
 export interface BackendNode {
   id: string;

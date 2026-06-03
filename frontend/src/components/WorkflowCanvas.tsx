@@ -19,6 +19,7 @@ import { TimerNode } from './nodes/TimerNode';
 import { APINode } from './nodes/APINode';
 import { AINode } from './nodes/AINode';
 import { LoggerNode } from './nodes/LoggerNode';
+import { TradeNode } from './nodes/TradeNode';
 import { NodePanel } from './NodePanel';
 import { NodeSettingsPanel } from './NodeSettingsPanel';
 import { ExecutionPanel } from './ExecutionPanel';
@@ -28,6 +29,7 @@ const nodeTypes = {
   api: APINode,
   ai: AINode,
   logger: LoggerNode,
+  trade: TradeNode,
 };
 
 interface WorkflowCanvasProps {
@@ -100,6 +102,13 @@ export function WorkflowCanvas({ workflow, onSave, onExecute }: WorkflowCanvasPr
       } else if (type === 'logger') {
         defaultData.level = 'info';
         defaultData.message = 'Workflow executed correctly.';
+      } else if (type === 'trade') {
+        defaultData.action = 'buy';
+        defaultData.symbol = 'AAPL';
+        defaultData.quantity = 1;
+        defaultData.mode = 'simulation';
+        defaultData.alpacaKeyId = '';
+        defaultData.alpacaSecret = '';
       }
 
       const newNode = {

@@ -35,6 +35,14 @@ export interface AINodeConfig extends BaseNodeConfig {
   };
 }
 
+export interface LoggerNodeConfig extends BaseNodeConfig {
+  type: 'logger';
+  data: {
+    level: 'info' | 'warn' | 'error' | 'debug';
+    message: string;
+  };
+}
+
 export interface TradeNodeConfig extends BaseNodeConfig {
   type: 'trade';
   data: {

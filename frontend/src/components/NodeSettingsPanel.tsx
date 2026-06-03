@@ -156,6 +156,79 @@ export function NodeSettingsPanel({ node, onUpdate, onClose, onDelete }: NodeSet
           </>
         )}
 
+        {/* Trade Config */}
+        {type === 'trade' && (
+          <>
+            <div>
+              <label className="block mb-1 text-[10px] tracking-wide opacity-80">Action</label>
+              <select
+                value={data.action || 'buy'}
+                onChange={(e) => handleDataChange('action', e.target.value)}
+                className="w-full p-2 bg-white border-2 border-black text-black font-medium"
+              >
+                <option value="buy">BUY</option>
+                <option value="sell">SELL</option>
+              </select>
+            </div>
+            <div>
+              <label className="block mb-1 text-[10px] tracking-wide opacity-80">Symbol</label>
+              <input
+                type="text"
+                value={data.symbol || 'AAPL'}
+                onChange={(e) => handleDataChange('symbol', e.target.value.toUpperCase())}
+                className="w-full p-2 bg-white border-2 border-black text-black font-medium uppercase"
+                placeholder="AAPL, BTCUSD, etc."
+              />
+            </div>
+            <div>
+              <label className="block mb-1 text-[10px] tracking-wide opacity-80">Quantity</label>
+              <input
+                type="number"
+                min="0.0001"
+                step="any"
+                value={data.quantity !== undefined ? data.quantity : 1}
+                onChange={(e) => handleDataChange('quantity', parseFloat(e.target.value) || 0)}
+                className="w-full p-2 bg-white border-2 border-black text-black font-medium"
+              />
+            </div>
+            <div>
+              <label className="block mb-1 text-[10px] tracking-wide opacity-80">Mode</label>
+              <select
+                value={data.mode || 'simulation'}
+                onChange={(e) => handleDataChange('mode', e.target.value)}
+                className="w-full p-2 bg-white border-2 border-black text-black font-medium"
+              >
+                <option value="simulation">Local Simulation</option>
+                <option value="alpaca">Alpaca Paper Trading API</option>
+              </select>
+            </div>
+            {data.mode === 'alpaca' && (
+              <>
+                <div>
+                  <label className="block mb-1 text-[10px] tracking-wide opacity-80">Alpaca API Key ID</label>
+                  <input
+                    type="text"
+                    value={data.alpacaKeyId || ''}
+                    onChange={(e) => handleDataChange('alpacaKeyId', e.target.value)}
+                    className="w-full p-2 bg-white border-2 border-black text-black font-medium normal-case"
+                    placeholder="AKXXXXXXXXXXXXXXXXXX"
+                  />
+                </div>
+                <div>
+                  <label className="block mb-1 text-[10px] tracking-wide opacity-80">Alpaca Secret Key</label>
+                  <input
+                    type="password"
+                    value={data.alpacaSecret || ''}
+                    onChange={(e) => handleDataChange('alpacaSecret', e.target.value)}
+                    className="w-full p-2 bg-white border-2 border-black text-black font-medium normal-case"
+                    placeholder="••••••••••••••••••••••••••••••••"
+                  />
+                </div>
+              </>
+            )}
+          </>
+        )}
+
         {/* Delete button */}
         <button
           onClick={onDelete}

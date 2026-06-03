@@ -6,6 +6,7 @@ const nodeTypes: { type: NodeType; label: string; description: string }[] = [
   { type: 'api', label: 'API Call', description: 'Make HTTP requests' },
   { type: 'ai', label: 'AI Node', description: 'AI processing & analysis' },
   { type: 'logger', label: 'Logger', description: 'Log messages to execution logs' },
+  { type: 'trade', label: 'Paper Trade', description: 'Simulate buy/sell or route via Alpaca' },
 ];
 
 interface NodePanelProps {

@@ -1,6 +1,6 @@
 // Core workflow type definitions
 
-export type NodeType = 'timer' | 'api' | 'ai' | 'logger';
+export type NodeType = 'timer' | 'api' | 'ai' | 'logger' | 'trade';
 
 export type TriggerType = 'manual' | 'schedule' | 'webhook';
 export type ConditionOperator = 'equals' | 'contains' | 'gt' | 'lt' | 'gte' | 'lte' | 'startsWith' | 'endsWith';
