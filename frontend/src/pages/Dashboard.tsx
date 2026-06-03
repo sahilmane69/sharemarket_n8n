@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Trash2, Edit2, Play, RotateCcw, DollarSign } from 'lucide-react';
+import { Plus, Trash2, Edit2, Play, RotateCcw, DollarSign, BookOpen } from 'lucide-react';
 import { useWorkflows } from '../hooks/useWorkflows';
 import { useExecution } from '../hooks/useExecution';
 import { templateUtils, workflowTemplates } from '../lib/templates';
@@ -116,13 +116,22 @@ export function Dashboard() {
             <h1 className="text-3xl font-black uppercase tracking-tight">AutoFlow</h1>
             <p className="text-sm font-semibold opacity-70 mt-1 uppercase">Simple Workflow Automation Platform</p>
           </div>
-          <button
-            onClick={createNewWorkflow}
-            className="flex items-center justify-center gap-2 px-5 py-3 bg-black hover:bg-white hover:text-black text-white border-2 border-black font-bold uppercase tracking-wider text-xs transition-all cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
-          >
-            <Plus className="w-4 h-4" />
-            New Workflow
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => navigate('/docs')}
+              className="flex items-center justify-center gap-2 px-5 py-3 bg-white hover:bg-black hover:text-white text-black border-2 border-black font-bold uppercase tracking-wider text-xs transition-all cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+            >
+              <BookOpen className="w-4 h-4" />
+              Docs
+            </button>
+            <button
+              onClick={createNewWorkflow}
+              className="flex items-center justify-center gap-2 px-5 py-3 bg-black hover:bg-white hover:text-black text-white border-2 border-black font-bold uppercase tracking-wider text-xs transition-all cursor-pointer shadow-[3px_3px_0px_0px_rgba(0,0,0,0.2)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+            >
+              <Plus className="w-4 h-4" />
+              New Workflow
+            </button>
+          </div>
         </div>
       </div>
 

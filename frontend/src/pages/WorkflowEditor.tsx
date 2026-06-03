@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, BookOpen } from 'lucide-react';
 import type { WorkflowData } from '../types/workflow';
 import { apiClient } from '../services/api';
 import { convertBackendWorkflowToLocal, convertLocalWorkflowToBackend } from '../types/backend';
@@ -75,13 +75,20 @@ export function WorkflowEditor() {
 
   return (
     <div className="flex flex-col h-screen bg-[#fafafa] text-black font-sans">
-      <div className="bg-white border-b-4 border-black p-4 flex items-center gap-4">
+      <div className="bg-white border-b-4 border-black p-4 flex items-center justify-between">
         <button
           onClick={() => navigate('/')}
           className="flex items-center gap-2 px-3 py-2 border-2 border-black bg-white hover:bg-black hover:text-white font-bold uppercase tracking-wider text-xs transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-1px] hover:translate-x-[-1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
+        </button>
+        <button
+          onClick={() => navigate('/docs')}
+          className="flex items-center gap-2 px-3 py-2 border-2 border-black bg-white hover:bg-black hover:text-white text-black font-bold uppercase tracking-wider text-xs transition-all cursor-pointer shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-1px] hover:translate-x-[-1px] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+        >
+          <BookOpen className="w-4 h-4" />
+          Docs
         </button>
       </div>
       <WorkflowCanvas workflow={workflow} onSave={handleSave} onExecute={handleExecute} />
